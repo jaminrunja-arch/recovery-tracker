@@ -1,0 +1,5 @@
+node_modules
+.git
+.session-secret
+.env
+attacks/node_modules

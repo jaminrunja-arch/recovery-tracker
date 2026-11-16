@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongodata:/data/db
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/recovery_tracker
+      SESSION_SECRET: ${SESSION_SECRET:-}
+    volumes:
+      - appdata:/data
+
+volumes:
+  mongodata:
+  appdata:
